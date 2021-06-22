@@ -7,7 +7,7 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.TextView;
+import android.widget.ImageView;
 
 import com.hugorafaelcosta.netflixjavaversion.model.Movie;
 
@@ -15,7 +15,8 @@ import java.util.ArrayList;
 import java.util.List;
 
 public class MainActivity extends AppCompatActivity {
-private MainAdapter mainAdapter;
+    private MainAdapter mainAdapter;
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -24,21 +25,22 @@ private MainAdapter mainAdapter;
         RecyclerView recyclerView = findViewById(R.id.recycler_view_main);
 
         List<Movie> movies = new ArrayList<>();
-        for(int i=0;i<30; i++){
-          Movie  movie =   new Movie();
-          movie.setCoverUrl("abc"+i);
-          movies.add(movie);
+        for (int i = 0; i < 30; i++) {
+            Movie movie = new Movie();
+            movie.setCoverUrl(R.drawable.movie);
+            movies.add(movie);
         }
-mainAdapter= new MainAdapter(movies);
-        recyclerView.setLayoutManager(new LinearLayoutManager(this,LinearLayoutManager.VERTICAL,false));
-             recyclerView.setAdapter(mainAdapter);
+        mainAdapter = new MainAdapter(movies);
+        recyclerView.setLayoutManager(new LinearLayoutManager(this, LinearLayoutManager.VERTICAL, false));
+        recyclerView.setAdapter(mainAdapter);
     }
 
     private static class MovieHolder extends RecyclerView.ViewHolder {
-        private final TextView textViewUrl;
+        final ImageView imageViewCover;
+
         public MovieHolder(@NonNull View itemView) {
             super(itemView);
-             textViewUrl = itemView.findViewById((R.id.text_view_url));
+            imageViewCover = itemView.findViewById((R.id.image_view_cover));
         }
     }
 
@@ -58,7 +60,7 @@ mainAdapter= new MainAdapter(movies);
         @Override
         public void onBindViewHolder(@NonNull MovieHolder holder, int position) {
             Movie movie = movies.get(position);
-            holder.textViewUrl.setText(movie.getCoverUrl());
+            holder.imageViewCover.setImageResource(movie.getCoverUrl());
         }
 
         @Override
